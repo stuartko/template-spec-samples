@@ -1,0 +1,9 @@
+{
+  "DisplayName" : "Dummy Template Spec v1",
+  "Description": "Used for testing of built-in template spec system.",
+  "SupportedClouds": [
+    "DF",
+    "Prod"
+  ],
+  "SupportsAirGapped": false
+}
