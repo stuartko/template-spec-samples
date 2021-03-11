@@ -1,5 +1,4 @@
 {
-  "DisplayName" : "(v1) Create Shared Image Gallery",
   "Description": "Creates a new Shared Image Gallery for VM images",
   "SupportedClouds": [
     "DF",
