@@ -1,7 +1,7 @@
 {
-  "DisplayName" : "Dummy Template Spec",
-  "Description": "Used for testing of built-in template spec system.",
-  "DocumentationUrl": "https://www.microsoft.com",
-  "Category": "General",
-  "ICMPath":  null
+  "displayName" : "Dummy Template Spec",
+  "description": "Used for testing of built-in template spec system.",
+  "documentationUrl": "https://www.microsoft.com",
+  "category": "General",
+  "iCMPath":  null
 }
