@@ -2,6 +2,5 @@
   "displayName" : "RG and KeyVault Template Spec",
   "description": "Used for testing of built-in template spec system.",
   "documentationUrl": "https://www.microsoft.com",
-  "category": "General",
-  "iCMPath":  null
+  "category": "General"
 }
