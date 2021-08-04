@@ -1,8 +1,8 @@
 {
-  "Description": "Used for testing of built-in template spec system.",
-  "SupportedClouds": [
+  "description": "Used for testing of built-in template spec system.",
+  "supportedClouds": [
     "DF",
     "Prod"
   ],
-  "SupportsAirGapped": false
+  "supportsAirGapped": false
 }
