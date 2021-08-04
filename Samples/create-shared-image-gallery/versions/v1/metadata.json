@@ -1,8 +1,8 @@
 {
-  "Description": "Creates a new Shared Image Gallery for VM images",
-  "SupportedClouds": [
+  "description": "Creates a new Shared Image Gallery for VM images",
+  "supportedClouds": [
     "DF",
     "Prod"
   ],
-  "SupportsAirGapped": true
+  "supportsAirGapped": true
 }
