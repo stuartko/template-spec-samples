@@ -99,3 +99,12 @@ Version metadata has the following **required** properties:
 Additionally the following **optional** properties are available:
 
 * **supportsAirGapped**: A boolean value that indicates whether this built-in should be returned in airgapped cloud environments. Defaults to false. Expected to be set by Microsoft employees only.
+
+### Step 5: Submit a PR to the template specs repo
+
+Now that you've created all the necessary changes locally in your repo/branch, you should commit your changes and initiate a pull request to the main repo.
+
+* For forked repos, you can see guidance for creating a PR here: [Creating a pull request from a fork - GitHub Docs](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
+* For branches within the template spec repo you can see guidance for creating a PR here: [Creating a pull request - GitHub Docs](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
+
+Be sure to fill out the PR template that is shown with the relevant details. After your PR is received someone from Microsoft will review it and either provide feedback requesting changes, or it will be approved and rollout can be expected within 30 days. 
