@@ -52,8 +52,8 @@ After you've created the version directory. It's time to add the templates/artif
 
 Each built-in template spec requires additional metadata for the overall template spec, as well as each individual version. We'll start with the overall template spec metadata....
 
-#### Metadata for overall template spec
-Create a file in your template spec directory with the name 'metadata.json' (eg: * /*{templateSpecId}*/versions/*{versionName}*/metadata.json) and populate it with the following contents to start things off:
+#### Metadata for overall template spec:
+Create a file in your template spec directory with the name 'metadata.json' (eg: * /*{templateSpecId}*/metadata.json) and populate it with the following contents to start things off:
 
     {
         "displayName" : "User Friendly Built-in Name",
@@ -75,4 +75,27 @@ Additionally the following **optional** properties can be set:
 * **documentationUrl**: An absolute URL to documentation related to your built-in. Having this property/value present is strongly recommended. For built-ins contributed by non-Microsoft third parties, the URL may be strongly scrutinized for longevity/security reasons. 
 * **icmPath**:  (Internal Microsoft Teams Only) This should be the path to the owning team in ICM, for example *"Your Team/Your Sub Team"*. Will be used to direct issues with the built-in to your team's ICM
 
-#### Metadata for template spec versions
+#### Metadata for template spec versions:
+Now we'll move on to the metadata for the template spec version. Create a file in your template spec version directory with the name 'metadata.json' (eg: * /*{templateSpecId}*/versions/*{versionName}*/metadata.json) and populate it with the following contents:
+
+    {
+        "description": "A short description of the version.",
+        "supportedClouds": [
+            "DF",
+            "Prod"
+        ]
+    }
+
+Version metadata has the following **required** properties:
+
+* **description**: A very short description of what the version does. If this is the initial version of a built-in, it's completely fine to just re-use the description you used for the overall built-in. For version updates, you can include a brief indication of what has changed over the previous version, for example: "Adds support for Cosmos DB".
+* **supportedClouds**: An array of the cloud environments your built-in supports. For most contributions, "DF" and "Prod" should be supported at a minimum. To be supported in other cloud environments, you should make sure any resource types (including api versions) you're referencing also exist in those clouds. The available cloud values to include in the array are as follows:
+
+  * *"DF"* - This is the Microsoft internal "Dogfood" environment. It allows Microsoft employees to test Azure components prior to official public release.
+  * *"Prod"* - Azure **public production cloud** (eg: https://portal.azure.com) used by most Azure customers.
+  * *"MC"* - Chinese sovereign cloud (eg: https://portal.azure.cn)
+  * *"FF"* - US Government cloud. Non-Microsoft employees can disregard this value.
+
+Additionally the following **optional** properties are available:
+
+* **supportsAirGapped**: A boolean value that indicates whether this built-in should be returned in airgapped cloud environments. Defaults to false. Expected to be set by Microsoft employees only.
