@@ -29,12 +29,12 @@
     "supportsAirGapped": {
       "type": "boolean",
       "default": false,
-      "description": "(Support Pending) Indicates whether this built-in is supported on air-gapped clouds."
+      "description": "Indicates whether this built-in is supported on air-gapped clouds."
     },
     "launchDateUtc": {
       "type": "string",
       "format": "date-time",
-      "description": "(Support Pending) The earliest date/time that the built-in version should be made available for use."
+      "description": "The earliest date/time that the built-in version should be made available for use."
     }
   },
   "required": [
