@@ -4,5 +4,6 @@
     "DF",
     "Prod"
   ],
-  "supportsAirGapped": true
+  "supportsAirGapped": true,
+  "launchDateUtc": "2021-09-04T00:00:00Z"
 }
