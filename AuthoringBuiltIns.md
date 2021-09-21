@@ -108,3 +108,18 @@ Now that you've created all the necessary changes locally in your repo/branch, y
 * For branches within the template spec repo you can see guidance for creating a PR here: [Creating a pull request - GitHub Docs](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
 
 Be sure to fill out the PR template that is shown with the relevant details. After your PR is received someone from Microsoft will review it and either provide feedback requesting changes, or it will be approved and rollout can be expected within 30 days. 
+
+## How do I update an existing built-in?
+
+All updates to existing built-ins should come as new versions, with exceptions for the following situations:
+* Simple text updates (no modifications of functionality)
+* Critical fixes for security purposes 
+
+Unless your update meets one of the exception scenarios above, you should submit a new version using the same steps outlined for a new built-in starting from: [Step 1: Validate your template/template spec functionality](#step-1:-validate-your-template/template-spec-functionality) . As part of the update process, be sure to bump your version in a way that will make sense to users (for example if your previous version name was "v1", your new version may be "v2").
+
+## I want to remove an existing built-in, what should I do?
+
+Built-ins should never be removed (doing so will break customers referencing the built-in during their deployments). We are currently working on implementing deprecation logic for this purpose. If you need a built-in removed for a **critical security issue** please contact {to_be_determined}@microsoft.com with details.
+
+---
+_This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments._
