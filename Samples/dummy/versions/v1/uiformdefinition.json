@@ -1,0 +1,50 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "view": {
+        "kind": "Form",
+        "properties": {
+            "title": "Dummy Test",
+            "steps": [
+                {
+                    "name": "basics",
+                    "label": "Basics",
+                    "elements": [
+                        {
+                            "name": "infoBox1",
+                            "type": "Microsoft.Common.InfoBox",
+                            "visible": true,
+                            "options": {
+                                "icon": "None",
+                                "text": "This is a dummy template spec for testing purposes only.",
+                                "uri": "https://www.microsoft.com"
+                            }
+                        },
+                        {
+                            "name": "resourceScope",
+                            "type": "Microsoft.Common.ResourceScope",
+                            "location": {
+                                "resourceTypes": [
+                                    "microsoft.resources/resourcegroups"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deployment": {
+                "parameters": {
+                    "_dxContentPath": "view.properties.deployment.parameters"
+                },
+                "kind": "ResourceGroup",
+                "location": "[steps('basics').resourceScope.location.name]",
+                "resourceGroupId": "[steps('basics').resourceScope.resourceGroup.id]",
+                "template": {
+                    "file": "<ARM deployment template relative path>"
+                },
+                "_dxContentPath": "view.properties.deployment"
+            },
+            "_dxContentPath": "view.properties"
+        },
+        "_dxContentPath": "view"
+    }
+}
