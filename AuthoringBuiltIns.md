@@ -1,3 +1,5 @@
+> ⚠️ Built-in Template Specs are a feature in development and are currently not available for public use. This document describes the initial process required for built-in template spec authoring, but will remain incomplete (contains some placeholds) until the feature has shipped.
+
 # Authoring and Contributing Built-in Template Specs
 
 This documents provides general information on what built-in template specs are, and the process involved to contribute new built-in template specs for consumption by a wider population.
