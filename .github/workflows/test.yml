@@ -28,7 +28,14 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          
+      - name: Get collaborators
+        shell: bash
+        env:
+          SECRET: ${{ secrets.mySecret }}
+        run: |
+         curl -X GET https://api.github.com/repos/stuartko/template-spec-samples/collaborators/${{ github.actor }} -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"
+         echo  https://api.github.com/repos/stuartko/template-spec-samples/collaborators/${{ github.actor }}
+
       - name: Show GitHub context   
         env: 
           GITHUB_CONTEXT: ${{ toJson(github) }}   
