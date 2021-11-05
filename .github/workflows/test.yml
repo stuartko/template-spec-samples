@@ -39,9 +39,11 @@ jobs:
          echo "::set-output name=collaboratorResult::$result"
          echo "Result is $result"
       - name: Reject if submitter is not collaborator
-        if: steps.getCollaboratorStatus.outputs.collaboratorResult == '204'
-        run: |
-         echo Unable to submit PR!
+        if: steps.getCollaboratorStatus.outputs.collaboratorResult <> '204'
+        uses: actions/github-script@v3
+        with:
+         script: |
+          core.setFailed('PR Submitter is not an authorized repo collaborator!')
 
       - name: Show GitHub context   
         env: 
