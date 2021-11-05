@@ -40,7 +40,7 @@ jobs:
          echo "Result is $result"
       - name: Reject if submitter is not collaborator
         if: steps.getCollaboratorStatus.outputs.collaboratorResult != '204'
-        uses: actions/github-script@v3
+        uses: actions/github-script@v5
         with:
          script: |
           github.rest.pulls.createReviewComment({
