@@ -28,16 +28,20 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-      - name: Get collaborators
+      - name: Get collaborator status
+        id: getCollaboratorStatus
         shell: bash
         env:
           SECRET: ${{ secrets.mySecret }}
         run: |
-         curl -X GET https://api.github.com/repos/stuartko/template-spec-samples/collaborators/${{ github.actor }} -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"
-         echo  https://api.github.com/repos/stuartko/template-spec-samples/collaborators/${{ github.actor }}
+         echo "GET'ing https://api.github.com/repos/stuartko/template-spec-samples/collaborators/${{ github.actor }}"
          result=$(curl --header "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" --write-out '%{http_code}' --silent --output /dev/null https://api.github.com/repos/stuartko/template-spec-samples/collaborators/${{ github.actor }})
          echo "::set-output name=collaboratorResult::$result"
          echo "Result is $result"
+      - name: Reject if submitter is not collaborator
+        if: steps.getCollaboratorStatus.outputs.collaboratorResult == '204'
+        run: |
+         echo Unable to submit PR!
 
       - name: Show GitHub context   
         env: 
