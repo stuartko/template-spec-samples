@@ -43,6 +43,12 @@ jobs:
         uses: actions/github-script@v3
         with:
          script: |
+          github.rest.pulls.createReviewComment({
+           owner: context.repo.owner,
+           repo: context.repo.repo,
+           pull_number: context.payload.event.pull_request.number,
+           body: 'Closing PR automatically. Submitter is not an authorized collaborator!',
+          })
           core.setFailed('PR Submitter is not an authorized repo collaborator!')
 
       - name: Show GitHub context   
