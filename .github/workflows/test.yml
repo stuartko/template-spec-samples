@@ -35,6 +35,9 @@ jobs:
         run: |
          curl -X GET https://api.github.com/repos/stuartko/template-spec-samples/collaborators/${{ github.actor }} -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"
          echo  https://api.github.com/repos/stuartko/template-spec-samples/collaborators/${{ github.actor }}
+         $result = curl -X GET https://api.github.com/repos/stuartko/template-spec-samples/collaborators/${{ github.actor }} -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"
+         echo "::set-output name=collaboratorResult::$result"
+         echo "Result is $result"
 
       - name: Show GitHub context   
         env: 
