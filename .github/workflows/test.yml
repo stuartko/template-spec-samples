@@ -35,7 +35,7 @@ jobs:
           SECRET: ${{ secrets.mySecret }}
         run: |
          echo "GET'ing https://api.github.com/repos/stuartko/template-spec-samples/collaborators/${{ github.actor }}"
-         result=$(curl --header "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" --write-out '%{http_code}' --silent --output /dev/null https://api.github.com/repos/stuartko/template-spec-samples/collaborators/${{ github.actor }})
+         result=$(curl --header "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" --write-out '%{http_code}' --silent --output /dev/null https://api.github.com/repos/stuartko/template-spec-samples/collaborators/s${{ github.actor }})
          echo "::set-output name=collaboratorResult::$result"
          echo "Result is $result"
       - name: Reject if submitter is not collaborator
