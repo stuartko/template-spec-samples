@@ -35,7 +35,7 @@ jobs:
         run: |
          curl -X GET https://api.github.com/repos/stuartko/template-spec-samples/collaborators/${{ github.actor }} -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"
          echo  https://api.github.com/repos/stuartko/template-spec-samples/collaborators/${{ github.actor }}
-         result=$(curl --H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" --write-out '%{http_code}' --silent --output /dev/null https://api.github.com/repos/stuartko/template-spec-samples/collaborators/${{ github.actor }})
+         result=$(curl --header "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" --write-out '%{http_code}' --silent --output /dev/null https://api.github.com/repos/stuartko/template-spec-samples/collaborators/${{ github.actor }})
          echo "::set-output name=collaboratorResult::$result"
          echo "Result is $result"
 
