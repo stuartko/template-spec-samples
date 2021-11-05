@@ -39,7 +39,7 @@ jobs:
          echo "::set-output name=collaboratorResult::$result"
          echo "Result is $result"
       - name: Reject if submitter is not collaborator
-        if: steps.getCollaboratorStatus.outputs.collaboratorResult <> '204'
+        if: steps.getCollaboratorStatus.outputs.collaboratorResult != '204'
         uses: actions/github-script@v3
         with:
          script: |
