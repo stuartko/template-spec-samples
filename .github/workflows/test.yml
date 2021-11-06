@@ -55,7 +55,7 @@ jobs:
              core.setFailed('PR Submitter is not an authorized repo collaborator!')
             }
           }
-          catch (e) {
+          catch (err) {
             core.setFailed(`Encountered error during collaborator retrieval: ${err}`)
           }
           
