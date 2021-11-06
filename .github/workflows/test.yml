@@ -14,6 +14,7 @@ jobs:
         uses: actions/github-script@v5
         with:
          script: |
+          var isVerifiedCollaborator = false
           try {
             var collaboratorUrl = "https://api.github.com/repos/stuartko/template-spec-samples/collaborators/${{ github.actor }}"
             core.info(`Performing GET on '${collaboratorUrl}'`)
@@ -23,32 +24,44 @@ jobs:
              }
             })
             
-            core.debug(`Collaborator request returned status code: '${response.status}'`)
-            
-            if (response == null || response.status != 204) {
-             github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.pull_request.number,
-              body: 'Closing PR automatically. Submitter ${{ github.actor }} is not an authorized collaborator!',
-             })
-             github.rest.pulls.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number,
-              state: 'closed',
-             })
-             github.rest.issues.addLabels({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.pull_request.number,
-              labels: [ "UnverifiedSubmitter" ]
-             })
-             
-             core.setFailed('PR Submitter is not an authorized repo collaborator!')
-             
+            core.debug(`Collaborator request returned status code: '${response.status}'`)    
+            isVerifiedCollaborator = (response != null && response.status == 204);
+          }
+          catch (err) {
+            if (err.status) {
+             core.debug(`Collaborator request returned status code: '${err.status}'`)
             } else {
-              github.rest.issues.addLabels({
+             // No status code was returned...
+             core.setFailed(`Encountered error during collaborator status check: ${err}`)
+            }
+          }
+          
+          if (!isVerifiedCollaborator) {
+          
+               github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                body: 'Closing PR automatically. Submitter ${{ github.actor }} is not an authorized collaborator!',
+               })
+               
+               github.rest.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.payload.pull_request.number,
+                state: 'closed',
+               })
+               
+               github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                labels: [ "UnverifiedSubmitter" ]
+               })
+             
+              core.setFailed('PR Submitter is not an authorized repo collaborator!')
+          } else {
+               github.rest.issues.addLabels({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: context.payload.pull_request.number,
@@ -56,10 +69,6 @@ jobs:
               })
 
               core.info("${{ github.actor }} is validated as a collaborator!")
-            }
-          }
-          catch (err) {
-            core.setFailed(`Encountered error during collaborator status check: ${err}`)
           }
           
     
