@@ -1,7 +1,7 @@
 # Workflow that will reject non-contributors submitting PRs. The PRs will be auto-closed
 
 name: Reject Unauthorized PRs
-on: [pull_request]
+on: [pull_request_target]
 jobs:
   check_access:
     # The type of runner that the job will run on
