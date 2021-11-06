@@ -23,29 +23,46 @@ jobs:
              }
             })
             
-            core.info(`Collaborator request returned status code: '${response.status}'`)
+            core.debug(`Collaborator request returned status code: '${response.status}'`)
             
             if (response == null || response.status != 204) {
              github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.payload.pull_request.number,
-              body: 'Closing PR automatically. Submitter is not an authorized collaborator!',
+              body: 'Closing PR automatically. Submitter ${{ github.actor }} is not an authorized collaborator!',
              })
              github.rest.pulls.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: context.payload.pull_request.number,
               state: 'closed',
-             })             
+             })
+             github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              labels: [
+               { name: "UnverifiedSubmitter" }
+              ]
+             })
              
              core.setFailed('PR Submitter is not an authorized repo collaborator!')
             }
           }
           catch (err) {
-            core.setFailed(`Encountered error during collaborator retrieval: ${err}`)
+            core.setFailed(`Encountered error during collaborator status check: ${err}`)
           }
           
-          core.notice("${{ github.actor }} is validated as a collaborator!")
+          github.rest.issues.addLabels({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.payload.pull_request.number,
+            labels: [
+             { name: "VerifiedSubmitter" }
+            ]
+          })
+             
+          core.info("${{ github.actor }} is validated as a collaborator!")
           
     
