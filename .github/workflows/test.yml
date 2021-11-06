@@ -46,19 +46,20 @@ jobs:
              })
              
              core.setFailed('PR Submitter is not an authorized repo collaborator!')
+             
+            } else {
+              github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                labels: [ "VerifiedSubmitter" ]
+              })
+
+              core.info("${{ github.actor }} is validated as a collaborator!")
             }
           }
           catch (err) {
             core.setFailed(`Encountered error during collaborator status check: ${err}`)
           }
-          
-          github.rest.issues.addLabels({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            issue_number: context.payload.pull_request.number,
-            labels: [ "VerifiedSubmitter" ]
-          })
-             
-          core.info("${{ github.actor }} is validated as a collaborator!")
           
     
