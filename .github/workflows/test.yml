@@ -20,7 +20,7 @@ jobs:
          script: |
           var isVerifiedCollaborator = false
           try {
-            var collaboratorUrl = `https://api.github.com/repos/${context.payload.repository}/collaborators/${{ github.actor }}`
+            var collaboratorUrl = `https://api.github.com/repos/${context.payload.repository.full_name}/collaborators/${{ github.actor }}`
             core.info(`Performing GET on '${collaboratorUrl}'`)
             var response = await github.request(`GET ${collaboratorUrl}`, {
              headers: {
