@@ -34,7 +34,7 @@ jobs:
              headers: {
               "Authorization" : "Bearer ${{ secrets.GITHUB_TOKEN }}"
              }
-            }
+            })
             
             core.info(`Response is '${response.status}'`)
             
