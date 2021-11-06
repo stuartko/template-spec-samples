@@ -24,6 +24,41 @@ jobs:
          result=$(curl --header "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" --write-out '%{http_code}' --silent --output /dev/null https://api.github.com/repos/stuartko/template-spec-samples/collaborators/s${{ github.actor }})
          echo "::set-output name=collaboratorResult::$result"
          echo "Result is $result"
+         
+      - name: Reject if submitter is not collaborator TEST
+        uses: actions/github-script@v5
+        with:
+         script: |
+          try {
+            var response = await fetch("https://api.github.com/repos/stuartko/template-spec-samples/collaborators/${{ github.actor }}", {
+             headers: {
+              "Authorization" : "Bearer ${{ secrets.GITHUB_TOKEN }}"
+             }
+            }
+            
+            core.info(`Response is '${response.status}'`)
+            
+            if (response == null || response.status != 204) {
+             github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: 'Closing PR automatically. Submitter is not an authorized collaborator!',
+             })
+             github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              state: 'closed',
+             })             
+             
+             core.setFailed('PR Submitter is not an authorized repo collaborator!')
+            }
+          }
+          catch (e) {
+            core.setFailed(`Encountered error during collaborator retrieval: ${err}`)
+          }
+          
       - name: Reject if submitter is not collaborator
         if: steps.getCollaboratorStatus.outputs.collaboratorResult != '204'
         uses: actions/github-script@v5
