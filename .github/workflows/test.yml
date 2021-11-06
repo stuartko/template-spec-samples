@@ -30,7 +30,7 @@ jobs:
         with:
          script: |
           try {
-            var response = await fetch("https://api.github.com/repos/stuartko/template-spec-samples/collaborators/${{ github.actor }}", {
+            var response = await github.request("GET https://api.github.com/repos/stuartko/template-spec-samples/collaborators/${{ github.actor }}", {
              headers: {
               "Authorization" : "Bearer ${{ secrets.GITHUB_TOKEN }}"
              }
