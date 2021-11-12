@@ -1,7 +1,7 @@
 # Workflow that will reject non-contributors submitting PRs. The PRs will be auto-closed if the
 # submitter is not a contributor of the project.
 
-name: Reject Unauthorized PRs
+name: Validate PR Authorization
 on: [pull_request_target]
 jobs:
   check_access:
