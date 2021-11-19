@@ -1,3 +1,6 @@
+<!-- Please complete the template below as part of your PR -->
+
+
 > ⚠️ It's important to note that only internal Microsoft teams and partners with "contributor" rights for this repo will be allowed to submit new built-ins and changes, all other PR submitters will have their PRs automatically rejected.
 
 # Built-in Template Spec Contribution
