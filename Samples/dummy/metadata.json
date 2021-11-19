@@ -1,6 +1,6 @@
 {
   "displayName" : "Dummy Template Spec",
-  "description": "Used for testing of built-in template spec system.",
+  "description": "Used for testing of built-in template spec system!",
   "documentationUrl": "https://www.microsoft.com",
   "category": "General",
   "icmPath":  "Azure Deployments/Azure Deployments"
