@@ -25,7 +25,7 @@ jobs:
             // })
             
             core.debug(`Collaborator request returned status code: '${response.status}'`)    
-            var access =  github.repos.checkCollaborator({
+            var access =  github.rest.repos.checkCollaborator({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 username: "${{ github.actor }}",
