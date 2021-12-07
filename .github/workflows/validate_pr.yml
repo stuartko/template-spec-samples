@@ -25,6 +25,13 @@ jobs:
             // })
             
             core.debug(`Collaborator request returned status code: '${response.status}'`)    
+            var access =  github.repos.checkCollaborator({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                username: "${{ github.actor }}",
+            });
+            
+            core.debug(`Access is: '${access}'`)
             isVerifiedCollaborator = (response != null && response.status == 204);
           }
           catch (err) {
