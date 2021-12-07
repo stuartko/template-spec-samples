@@ -31,7 +31,7 @@ jobs:
                 username: "${{ github.actor }}",
             });
             
-            core.debug(`Access is: '${access}'`)
+            core.debug(`Access is: '${JSON.stringify(access)}'`)
             isVerifiedCollaborator = (response != null && response.status == 204);
           }
           catch (err) {
