@@ -17,12 +17,11 @@ jobs:
           try {
             var collaboratorUrl = `https://api.github.com/repos/${context.payload.repository.full_name}/collaborators/${{ github.actor }}`
             core.info(`Performing GET on '${collaboratorUrl}'`)
-            var response = await github.request(`GET ${collaboratorUrl}`)
-            // var response = await github.request(`GET ${collaboratorUrl}`, {
-            // headers: {
-            //  "Authorization" : "token ${{ secrets.GITHUB_TOKEN }}"
-            // }
-            // })
+            var response = await github.request(`GET ${collaboratorUrl}`, {
+              headers: {
+                "Authorization" : "token ${{ secrets.ORG_DATA_ACCESS_TOKEN }}"
+              }
+            })
             
             core.debug(`Collaborator request returned status code: '${response.status}'`)    
             var access = await github.rest.repos.checkCollaborator({
