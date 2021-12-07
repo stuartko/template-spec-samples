@@ -17,11 +17,12 @@ jobs:
           try {
             var collaboratorUrl = `https://api.github.com/repos/${context.payload.repository.full_name}/collaborators/${{ github.actor }}`
             core.info(`Performing GET on '${collaboratorUrl}'`)
-            var response = await github.request(`GET ${collaboratorUrl}`, {
-             headers: {
-              "Authorization" : "token ${{ secrets.GITHUB_TOKEN }}"
-             }
-            })
+            var response = await github.request(`GET ${collaboratorUrl}`)
+            #var response = await github.request(`GET ${collaboratorUrl}`, {
+            # headers: {
+            #  "Authorization" : "token ${{ secrets.GITHUB_TOKEN }}"
+            # }
+            #})
             
             core.debug(`Collaborator request returned status code: '${response.status}'`)    
             isVerifiedCollaborator = (response != null && response.status == 204);
