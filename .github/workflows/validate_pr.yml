@@ -42,7 +42,7 @@ jobs:
       - name: Reject if submitter is not collaborator
         uses: actions/github-script@v5
         with:
-         isVerifiedCollaborator: ${{ steps.get-collaborator-status.isVerifiedCollaborator }}
+         isVerifiedCollaborator: ${{ steps.get-collaborator-status.outputs.isVerifiedCollaborator }}
          script: |
           var isVerifiedCollaborator = core.getBooleanInput('isVerifiedCollaborator');
           if (!isVerifiedCollaborator) {
