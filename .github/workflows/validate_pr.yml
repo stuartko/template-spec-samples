@@ -9,7 +9,8 @@ jobs:
     name: Reject Unauthorized PRs
 
     steps:
-      - name: Reject if submitter is not collaborator
+      - name: Get collaborator status
+        id: get-collaborator-status
         uses: actions/github-script@v5
         with:
          script: |
@@ -18,19 +19,12 @@ jobs:
             var collaboratorUrl = `https://api.github.com/repos/${context.payload.repository.full_name}/collaborators/${{ github.actor }}`
             core.info(`Performing GET on '${collaboratorUrl}'`)
             var response = await github.request(`GET ${collaboratorUrl}`, {
-              headers: {
-                "Authorization" : "token ${{ secrets.ORG_DATA_ACCESS_TOKEN }}"
-              }
+             headers: {
+              "Authorization" : "token ${{ secrets.GITHUB_TOKEN }}"
+             }
             })
             
             core.debug(`Collaborator request returned status code: '${response.status}'`)    
-            var access = await github.rest.repos.checkCollaborator({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                username: "${{ github.actor }}",
-            });
-            
-            core.debug(`Access is: '${JSON.stringify(access)}'`)
             isVerifiedCollaborator = (response != null && response.status == 204);
           }
           catch (err) {
@@ -38,10 +32,19 @@ jobs:
              core.debug(`Collaborator request returned status code: '${err.status}'`)
             } else {
              // No status code was returned...
+             core.setOutput('isVerifiedCollaborator', false);
              core.setFailed(`Encountered error during collaborator status check: ${err}`)
             }
           }
           
+          core.setOutput('isVerifiedCollaborator', isVerifiedCollaborator);
+          
+      - name: Reject if submitter is not collaborator
+        uses: actions/github-script@v5
+        with:
+         isVerifiedCollaborator: ${{ steps.get-collaborator-status.isVerifiedCollaborator }}
+         script: |
+          var isVerifiedCollaborator = core.getBooleanInput('isVerifiedCollaborator');
           if (!isVerifiedCollaborator) {
           
                github.rest.issues.createComment({
@@ -76,5 +79,3 @@ jobs:
 
               core.info("${{ github.actor }} is validated as a collaborator!")
           }
-          
-    
