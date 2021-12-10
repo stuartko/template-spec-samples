@@ -13,7 +13,7 @@ jobs:
         id: get-collaborator-status
         uses: actions/github-script@v5
         with:
-         github-token: ${{ secrets.GH_PUBLICREPO_ORG-READONLY_TOKEN }}
+         github-token: ${{ secrets.GH_PUBLICREPO_ORGREAD_TOKEN }}
          script: |
           var isVerifiedCollaborator = false
           try {
