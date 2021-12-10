@@ -21,7 +21,7 @@ jobs:
             core.info(`Performing GET on '${collaboratorUrl}'`)
             var response = await github.request(`GET ${collaboratorUrl}`, {
              headers: {
-              "Authorization" : "token ${{ secrets.GH_PUBLICREPO_ORG-READONLY_TOKEN }}"
+              "Authorization" : "token ${{ secrets.GH_PUBLICREPO_ORGREAD_TOKEN }}"
              }
             })
             
