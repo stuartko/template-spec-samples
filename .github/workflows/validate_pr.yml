@@ -13,6 +13,7 @@ jobs:
         id: get-collaborator-status
         uses: actions/github-script@v5
         with:
+         github-token: ${{ secrets.GH_PUBLICREPO_ORG-READONLY_TOKEN }}
          script: |
           var isVerifiedCollaborator = false
           try {
@@ -20,7 +21,7 @@ jobs:
             core.info(`Performing GET on '${collaboratorUrl}'`)
             var response = await github.request(`GET ${collaboratorUrl}`, {
              headers: {
-              "Authorization" : "token ${{ secrets.GITHUB_TOKEN }}"
+              "Authorization" : "token ${{ secrets.GH_PUBLICREPO_ORG-READONLY_TOKEN }}"
              }
             })
             
